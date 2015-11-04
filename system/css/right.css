@@ -1,4 +1,4 @@
-@charset "gb2312";
+@charset "utf-8";
 /* CSS Document */
 .place {	height:40px;	background:url(../images/righttop.gif) repeat-x;}
 .place span {	line-height:40px;	font-weight:bold;	float:left;	margin-left:12px;}
@@ -22,7 +22,7 @@
 .tablelist tbody tr:hover {	background:#e5ebee;}
 .sort {	padding-left:3px;}
 
-/* form±Ìµ•…Ë÷√*/
+/* formË°®ÂçïËÆæÁΩÆ*/
 .formbody{padding:10px 18px;}
 .formtitle{border-bottom:solid 1px #d0dee5; line-height:35px; position:relative; height:35px; margin-bottom:28px;}
 .formtitle span{font-weight:bold;font-size:14px; border-bottom:solid 3px #66c9f3;float:left; position:absolute; z-index:100; bottom:-1px; padding:0 3px; height:30px;      line-height:30px;}
