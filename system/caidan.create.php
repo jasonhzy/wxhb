@@ -21,14 +21,14 @@ if($num==0){
 if($row['ctype']==0){
 $menus= "{
 			 \"type\":\"view\",
-			 \"name\":\"".iconv("GBK","UTF-8",$row['cname'])."\",
-			 \"url\":\"".iconv("GBK","UTF-8",$row['curl'])."\"
+			 \"name\":\"".$row['cname']."\",
+			 \"url\":\"".$row['curl']."\"
 			 }";
 }else {
 $menus= "{ 
 		     \"type\":\"click\",
-			 \"name\":\"".iconv("GBK","UTF-8",$row['cname'])."\",
-			 \"key\":\"".iconv("GBK","UTF-8",$row['ckey'])."\"
+			 \"name\":\"".$row['cname']."\",
+			 \"key\":\"".$row['ckey']."\"
 			 }";
 }
 if($i<$zhunum){
@@ -39,7 +39,7 @@ $dataContent=$dataContent.$menus;
 $j=1;
 $mquery=$dbconn->query("select * from ".DBQIAN."caidan_list where adminid=$adminid and cid=$row[id] order by cnum desc,id desc ");
 $nextMenuStart="{
-			\"name\":\"".iconv("GBK","UTF-8",$row['cname'])."\",
+			\"name\":\"".$row['cname']."\",
 			\"sub_button\":[";
 $nextMenuEnd="]
 		    }";
@@ -48,14 +48,14 @@ while($nextrow=$dbconn->fetch($mquery)){
 if($nextrow['ctype']==0){
 $menus= "{
 			     \"type\":\"view\",
-			     \"name\":\"".iconv("GBK","UTF-8",$nextrow['cname'])."\",
-			     \"url\":\"".iconv("GBK","UTF-8",$nextrow['curl'])."\"
+			     \"name\":\"".$nextrow['cname']."\",
+			     \"url\":\"".$nextrow['curl']."\"
 			     }";
 }else {
 $menus= "{
 		         \"type\":\"click\",
-			     \"name\":\"".iconv("GBK","UTF-8",$nextrow['cname'])."\",
-			     \"key\":\"".iconv("GBK","UTF-8",$nextrow['ckey'])."\"
+			     \"name\":\"".$nextrow['cname']."\",
+			     \"key\":\"".$nextrow['ckey']."\"
 			     }";
 }
 if($j<$num){

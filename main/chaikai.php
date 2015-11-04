@@ -13,10 +13,10 @@ if($hongbaorow['hlingqu']!="" || $hongbaorow['hjinzhiqu']!=""){
 	$res1 = file_get_contents("http://ip.taobao.com/service/getIpInfo.php?ip=".$uip); 
 	$res1 = json_decode($res1);
 	$uipdizhi='';
-	$uipdizhi=$uipdizhi.iconv("UTF-8","GBK",$res1->data->country);
-	$uipdizhi=$uipdizhi.iconv("UTF-8","GBK",$res1->data->region);
-	$uipdizhi=$uipdizhi.iconv("UTF-8","GBK",$res1->data->city);
-	$uipdizhi=$uipdizhi.iconv("UTF-8","GBK",$res1->data->isp);
+	$uipdizhi=$uipdizhi.$res1->data->country;
+	$uipdizhi=$uipdizhi.$res1->data->region;
+	$uipdizhi=$uipdizhi.$res1->data->city;
+	$uipdizhi=$uipdizhi.$res1->data->isp;
 	
 	if($hongbaorow['hlingqu']!=""){
 	   $diqu=@explode(",",$hongbaorow['hlingqu']);
@@ -51,7 +51,7 @@ $userrow=$dbconn->fetch($dbconn->query("select uickname,uheadimgurl from ".DBQIA
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-<title>���о�ϲ</title>
+<title>拆开有惊喜</title>
 <link rel="stylesheet" href="../css/chaikai.css" />
 <script src="../jscripts/jquery-2.1.1.min.js"></script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
@@ -103,7 +103,7 @@ wx.ready(function () {
 		 trigger: function (res) {
 		 },
          success: function (res) {
-			  $(".second-box .second-nickname").text('<?php echo $userrow['uickname'];?>'+'��ף��');
+			  $(".second-box .second-nickname").text('<?php echo $userrow['uickname'];?>'+'的祝福');
 	          $(".second-box .second-headimg").attr("src",'../images/hbss_icon.jpg');
 			  
 			  $('.second-box .money1').hide();
@@ -127,7 +127,7 @@ wx.ready(function () {
         trigger: function (res) {
         },
         success: function (res) {
-			  $(".second-box .second-nickname").text('<?php echo $userrow['uickname'];?>'+'��ף��');
+			  $(".second-box .second-nickname").text('<?php echo $userrow['uickname'];?>'+'的祝福');
 	          $(".second-box .second-headimg").attr("src",'../images/hbss_icon.jpg');
 
 			  $('.second-box .money1').hide();
@@ -204,7 +204,7 @@ $(document).ready(function(){
 </head>
 <body>
 <?php
-//����ں�
+//随机公众号
 $wxarr=array();
 $query=$dbconn->query("select id from ".DBQIAN."wxname_list order by id desc");
 while($wxrow=$dbconn->fetch($query)){
@@ -219,7 +219,7 @@ $wxrow=$dbconn->fetch($dbconn->query("select wxname,wxzhanghao from ".DBQIAN."wx
   <img class="body" src="../images/fools_1.png">
   <img class="user-headimg" src="../images/hbss_icon.jpg">
   <div class="hot-click"></div>
-  <div class="nickname"><?php echo $wxrow['wxname'];?> ������</div>
+  <div class="nickname"><?php echo $wxrow['wxname'];?> 的赠礼</div>
 </div>
 
 <div class="second-box" style="display:none">
@@ -227,47 +227,47 @@ $wxrow=$dbconn->fetch($dbconn->query("select wxname,wxzhanghao from ".DBQIAN."wx
     <img class="second-bg" src="../images/fools_2.png"> 
     <img class="second-headimg" src="<?php echo substr($userrow['uheadimgurl'],0,-1).'132';?>">
     <div class="second-nickname">
-	   <?php echo $wxrow['wxname'];?> ������
-       <p style="font-size:13px; color:#999999">��ϲ���ƣ��󼪴���</p>
+	   <?php echo $wxrow['wxname'];?> 的赠礼
+       <p style="font-size:13px; color:#999999">恭喜发财，大吉大利！</p>
     </div>
-    <!--ucode����-->
+    <!--ucode错误-->
     <div class="money1">
-      <p style="color:rgb(214, 86, 69);font-size:1.2em;">����"<?php echo $hongbaorow['hfaci'];?>"��"<?php echo $wxrow['wxname'];?>"���ں�<br>��ȡ����</p>
+      <p style="color:rgb(214, 86, 69);font-size:1.2em;">发送"<?php echo $hongbaorow['hfaci'];?>"给"<?php echo $wxrow['wxname'];?>"公众号<br>领取礼物</p>
       <p><img src="http://open.weixin.qq.com/qr/code/?username=<?php echo $wxrow['wxzhanghao'];?>" width="180"/></p>
-      <p style="color:#F00;font-size:1.2em;">������ά�룬ʶ����빫�ں�</p>
+      <p style="color:#F00;font-size:1.2em;">长按二维码，识别进入公众号</p>
     </div>
-    <!--��ȡ����-->
+    <!--领取过了-->
     <div class="money2">
       <div class="needMore">
-        <p style="color:rgb(214, 86, 69);font-size:1.2em;">����ѷ������Լ�Ҳ��������Ŷ~</p>
-        <a href="javascript:void(0);" class="lg-btn sendMoney">����������</a>
+        <p style="color:rgb(214, 86, 69);font-size:1.2em;">给好友发礼物自己也可以再领哦~</p>
+        <a href="javascript:void(0);" class="lg-btn sendMoney">立即发礼物</a>
       </div>
     </div>
-    <!--��ȡ�ɹ�-->
-    <div class="money3"><span class="money-number"></span> <span class="yuan">Ԫ</span> 
-      <p style="color:#70A0D7;font-size:1em;">�Ѵ�����Ǯ,��ֱ������</p>
-      <p>����Ҫ?�����������...</p>
-      <p style="color:rgb(214, 86, 69);font-size:1.2em;">����ѷ������Լ�Ҳ������������Ŷ~</p>
-      <a href="javascript:void(0);" class="lg-btn sendMoney">����������</a>
+    <!--领取成功-->
+    <div class="money3"><span class="money-number"></span> <span class="yuan">元</span> 
+      <p style="color:#70A0D7;font-size:1em;">已存入零钱,可直接提现</p>
+      <p>还想要?告诉你个秘密...</p>
+      <p style="color:rgb(214, 86, 69);font-size:1.2em;">给好友发礼物自己也可以再领礼物哦~</p>
+      <a href="javascript:void(0);" class="lg-btn sendMoney">立即发礼物</a>
     </div>
-    <!--ϵͳ����-->
+    <!--系统错误-->
     <div class="money4">
-      <p style="color:rgb(214, 86, 69);font-size:1.2em;">��̫���ˣ������´򿪣�</p>
+      <p style="color:rgb(214, 86, 69);font-size:1.2em;">人太多了，请重新打开！</p>
     </div>
-    <!--û��Ǯ��-->
+    <!--没有钱了-->
     <div class="money6">
-       <p style="color:rgb(214, 86, 69);font-size:1.2em;">������,û���ˣ�</p>
-       <a href="javascript:void(0);" class="lg-btn sendMoney">����������</a>
+       <p style="color:rgb(214, 86, 69);font-size:1.2em;">来晚了,没有了！</p>
+       <a href="javascript:void(0);" class="lg-btn sendMoney">立即发礼物</a>
     </div>
-    <!--����еڶ������ں�-->
+    <!--如果有第二个公众号-->
     <div class="money5">
-      <p style="color:rgb(214, 86, 69);font-size:1.2em;">����"<?php echo $hongbaorow['hfaci'];?>"��"<?php echo $wxrow['wxname'];?>"���ں�<br>��ø�ྪϲ</p>
+      <p style="color:rgb(214, 86, 69);font-size:1.2em;">发送"<?php echo $hongbaorow['hfaci'];?>"给"<?php echo $wxrow['wxname'];?>"公众号<br>获得更多惊喜</p>
       <p><img src="http://open.weixin.qq.com/qr/code/?username=<?php echo $wxrow['wxzhanghao'];?>" width="180"/></p>
-      <p style="color:#F00;font-size:1.2em;">������ά�룬ʶ����빫�ں�</p>
+      <p style="color:#F00;font-size:1.2em;">长按二维码，识别进入公众号</p>
     </div>
   </div>
 </div>
-<div class="share" style="display:none"> <span class="share-p">������ѣ������½���Ŀ�У�����</span> 
+<div class="share" style="display:none"> <span class="share-p">发给好友，享受下金雨的快感！！！</span> 
   <img class="pointer" src="../images/share_arrow.gif">
   <img class="close" src="../images/close-black.gif"> 
 </div>

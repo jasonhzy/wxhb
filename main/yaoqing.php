@@ -32,10 +32,10 @@ if(isset($_GET['code']) && $_GET['code']!=''){
    $geturl="https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$access_token."&openid=".$ucode."&lang=zh_CN";
    $getutxtjson =json_decode($tools->http_curl_get($geturl,true));
    if($getutxtjson->subscribe==1){
-	  $uickname    =iconv("UTF-8","GBK",$getutxtjson->nickname);
+	  $uickname    = $getutxtjson->nickname;
 	  $usex        =intval($getutxtjson->sex);
 	  $headimgurl  =$getutxtjson->headimgurl;
-	  $udizhi      =iconv("UTF-8","GBK",$getutxtjson->province).iconv("UTF-8","GBK",$getutxtjson->city);	
+	  $udizhi      = $getutxtjson->province.,$getutxtjson->city;	
 	  $utime=time();
 	  if($usernum == 0){
 		   $dbconn->noretquery("insert into ".DBQIAN."user_list(ucode,utcode,uickname,usex,uheadimgurl,udizhi,utime)values

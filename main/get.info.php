@@ -6,7 +6,7 @@ $sk=intval($_GET['sk']);
 $sh=intval($_GET['sh']);
 
 $sysconfig=mysql_fetch_array(mysql_query("select cappid,cappsecret,cdenglucode from ".DBQIAN."sys_config order by id desc limit 1"));
-//»ñÈ¡ÓÃ»§µÄopenid
+//ï¿½ï¿½È¡ï¿½Ã»ï¿½ï¿½ï¿½openid
 if(isset($_GET['code']) && $_GET['code']!=''){
    $WXCODE=$_GET['code'];
    $getucodeurl="https://api.weixin.qq.com/sns/oauth2/access_token?appid=".$sysconfig['cappid']."&secret=".$sysconfig['cappsecret']."&code=".$WXCODE."&grant_type=authorization_code";
@@ -22,10 +22,10 @@ if(isset($_GET['code']) && $_GET['code']!=''){
    $geturl=$getutxturl="https://api.weixin.qq.com/sns/userinfo?access_token=".$wxlintoken."&openid=".$ucode."&lang=zh_CN";
    $getutxtjson =json_decode($tools->http_curl_get($geturl));
    
-   $uickname    =iconv("UTF-8","GBK",$getutxtjson->nickname);
+   $uickname    = $getutxtjson->nickname;
    $usex        =intval($getutxtjson->sex);
    $headimgurl  =$getutxtjson->headimgurl;
-   $udizhi      =iconv("UTF-8","GBK",$getutxtjson->province).iconv("UTF-8","GBK",$getutxtjson->city);	
+   $udizhi      = $getutxtjson->province . $getutxtjson->city;	
    $utime=time();
    if($usernum > 0){
 		$dbconn->noretquery("update ".DBQIAN."user_list set uickname='$uickname',

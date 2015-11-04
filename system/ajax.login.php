@@ -2,7 +2,7 @@
 session_start();
 include("../includes/conn.php");
 $tools=new tools();
-$uname=iconv("UTF-8","GBK",$tools->sql_mag_gpc($_POST['uname']));
+$uname= $tools->sql_mag_gpc($_POST['uname']);
 $upass=$tools->sql_mag_gpc($_POST['upass']);
 $num=$dbconn->countn(DBQIAN."sys_user"," uname='$uname' and upass='$upass' ");
 if($num==1){

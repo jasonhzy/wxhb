@@ -25,10 +25,10 @@ if($hongbaorow['hlingqu']!="" || $hongbaorow['hjinzhiqu']!=""){
 	$res1 = file_get_contents("http://ip.taobao.com/service/getIpInfo.php?ip=".$uip); 
 	$res1 = json_decode($res1);
 	$uipdizhi='';
-	$uipdizhi=$uipdizhi.iconv("UTF-8","GBK",$res1->data->country);
-	$uipdizhi=$uipdizhi.iconv("UTF-8","GBK",$res1->data->region);
-	$uipdizhi=$uipdizhi.iconv("UTF-8","GBK",$res1->data->city);
-	$uipdizhi=$uipdizhi.iconv("UTF-8","GBK",$res1->data->isp);
+	$uipdizhi=$uipdizhi.$res1->data->country;
+	$uipdizhi=$uipdizhi.$res1->data->region;
+	$uipdizhi=$uipdizhi.$res1->data->city;
+	$uipdizhi=$uipdizhi.$res1->data->isp;
 	
 	if($hongbaorow['hlingqu']!=""){
 	   $diqu=@explode(",",$hongbaorow['hlingqu']);
@@ -51,7 +51,7 @@ if($hongbaorow['hlingqu']!="" || $hongbaorow['hjinzhiqu']!=""){
 	}
 }
 
-//����ں�
+//随机公众号
 $wxarr=array();
 $query=$dbconn->query("select id from ".DBQIAN."wxname_list order by id desc");
 while($wxrow=$dbconn->fetch($query)){
@@ -155,22 +155,22 @@ wx.ready(function () {
 </head>
 <body>
 <div class="row">
-  <div class="tips">��һ��</div>
+  <div class="tips">第一步</div>
 </div>
 <div class="row text-center"> <img src="http://open.weixin.qq.com/qr/code/?username=<?php echo $wxrow['wxzhanghao'];?>" width="180"/> </div>
 <div class="row text-center" >
-  <div style="font-size:22px;color:#fff;font-weight:bold;line-height:40px;color:#fa3137">"����ͼƬ��ʶ��ͼ�ж�ά��"</div>
-  <div style="line-height:30px;"> �糤��ͼƬ��Ч����������΢�źŹ�ע���� </div>
+  <div style="font-size:22px;color:#fff;font-weight:bold;line-height:40px;color:#fa3137">"长按图片，识别图中二维码"</div>
+  <div style="line-height:30px;"> 如长按图片无效，搜索以下微信号关注即可 </div>
   <div style="font-size:28px;font-weight:bold;line-height:60px;color:#000000"><span style="border:1px dashed #000000;padding:5px 10px"><?php echo $wxrow['wxzhanghao'];?></span></div>
-  <div style="line-height:30px;">�������߿򣬿���΢�ź�</div>
+  <div style="line-height:30px;">长按虚线框，拷贝微信号</div>
 </div>
 <div class="row">
-  <div class="tips">�ڶ���</div>
+  <div class="tips">第二步</div>
 </div>
 <div class="row text-center" >
-  <div style="font-size:22px;color:#fff;font-weight:bold;line-height:40px;color:#fa3137">����"<?php echo $hongbaorow['hfaci'];?>"���ں�</div>
-  <div style="line-height:30px;">���ͼ����Ϣ��������</div>
-  <div style="line-height:30px;">ÿ��һ�����ѳɹ���ȡ����Ҳ���ٵõ�һ����</div>
+  <div style="font-size:22px;color:#fff;font-weight:bold;line-height:40px;color:#fa3137">发送"<?php echo $hongbaorow['hfaci'];?>"给公众号</div>
+  <div style="line-height:30px;">点击图文消息，给朋友</div>
+  <div style="line-height:30px;">每多一个朋友成功领取，你也会再得到一个！</div>
 </div>
 </body>
 </html>

@@ -35,7 +35,6 @@ class msCallbackapi
                        if($postObj->Event == "CLICK"){
 						   $this->checkUser($fromUsername);
 						   $keyword = trim($postObj->EventKey);
-						   $keyword=iconv("UTF-8","GBK",$keyword);
  					       $query= mysql_query("select id,kcode from ".DBQIAN."news_key where sname = '$keyword' and adminid=".MYUID." limit 1");
 						   $num=mysql_num_rows($query);
 						      if($num > 0){
@@ -70,7 +69,6 @@ class msCallbackapi
 					case "text"://文本消息
 					   $this->checkUser($fromUsername);
 					   $keyword = trim($postObj->Content);	
-					   $keyword=iconv("UTF-8","GBK",$keyword);
 					   $query= mysql_query("select id,kcode from ".DBQIAN."news_key where sname = '$keyword' and adminid=".MYUID." limit 1");
 					   $num=mysql_num_rows($query);
 					   if($num!=0){
@@ -124,8 +122,8 @@ class msCallbackapi
 					";
 		$query=mysql_query("select sname,sdec,stime,spic,surl from ".DBQIAN."news_send where kid=$sendid order by snum desc,id desc limit 10");
 		while($crow=mysql_fetch_array($query)){
-		   $msgtitle = iconv("GBK","UTF-8",$crow["sname"]);
-		   $msgcontent = iconv("GBK","UTF-8",$crow["sdec"]) ;
+		   $msgtitle = $crow["sname"];
+		   $msgcontent = $crow["sdec"];
 		   $msgpicurl = WEBNAME."uploads/".substr($crow["stime"],0,4)."/".substr($crow["stime"],5,2)."/".$crow["spic"];
 		   $urls = parse_url($crow['surl']);
 		   $str=$urls['query'];
@@ -165,7 +163,6 @@ class msCallbackapi
 			";
 			$row=mysql_fetch_array(mysql_query("select sdec from ".DBQIAN."news_send where kid=$sendid"));
 			$msgcontent=$row['sdec'];
-			$msgcontent=iconv("GBK","UTF-8",$msgcontent);
 			$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time,$msgcontent);
 			mysql_close();
 			echo $resultStr;

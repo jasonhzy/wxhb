@@ -48,7 +48,7 @@ if($actioncode==0){
 	$wxHongBaoHelper->setParameter("check_name","NO_CHECK");//校验用户姓名选项
 	$wxHongBaoHelper->setParameter("amount", $thismoney);//金额
 	$wxHongBaoHelper->setParameter("re_user_name", "李四");//企业付款描述信息
-	$wxHongBaoHelper->setParameter("desc", iconv("GBK","UTF-8",$hongbaorow['hdesc']));//企业付款描述信息
+	$wxHongBaoHelper->setParameter("desc", $hongbaorow['hdesc']);//企业付款描述信息
 	$wxHongBaoHelper->setParameter("spbill_create_ip", $wxHongBaoHelper->Getip());
 
 	$postXml = $wxHongBaoHelper->create_hongbao_xml();
@@ -91,7 +91,7 @@ if($row['utcode']!='' && $row['uystate']==1 && $sysconfig['cyongjin'] > 0){
 	$wxHongBaoHelper->setParameter("check_name","NO_CHECK");//校验用户姓名选项
 	$wxHongBaoHelper->setParameter("amount", $thismoney);//金额
 	$wxHongBaoHelper->setParameter("re_user_name", "李四");//企业付款描述信息
-	$wxHongBaoHelper->setParameter("desc", iconv("GBK","UTF-8",$hongbaorow['hdesc']));//企业付款描述信息
+	$wxHongBaoHelper->setParameter("desc", $hongbaorow['hdesc']);//企业付款描述信息
 	$wxHongBaoHelper->setParameter("spbill_create_ip", $wxHongBaoHelper->Getip());
 
 	$postXml = $wxHongBaoHelper->create_hongbao_xml();
